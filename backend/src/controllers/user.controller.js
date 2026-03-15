@@ -72,7 +72,55 @@ async function unfollowUserController(req, res) {
     })
 }
 
+
+async function acceptFollowRequestController(req,res){
+
+    const requestId = req.params.id
+
+    const request = await followModel.findByIdAndUpdate(
+        requestId,
+        {status:"accepted"},
+        {new:true}
+    )
+
+    if(!request){
+        return res.status(404).json({
+            message:"follow request not found"
+        })
+    }
+
+    res.status(200).json({
+        message:"follow request accepted",
+        request
+    })
+}
+
+
+async function rejectFollowRequestController(req,res){
+
+    const requestId = req.params.id
+
+    const request = await followModel.findByIdAndUpdate(
+        requestId,
+        {status:"rejected"},
+        {new:true}
+    )
+
+    if(!request){
+        return res.status(404).json({
+            message:"follow request not found"
+        })
+    }
+
+    res.status(200).json({
+        message:"follow request rejected",
+        request
+    })
+}
+
 module.exports = {
     followUserController,
-    unfollowUserController
+    unfollowUserController,
+    acceptFollowRequestController,
+    rejectFollowRequestController
 }
