@@ -7,7 +7,7 @@ const identifyUser = require("../middlewares/auth.middleware")
 
 
 
-postRouter.post("/", upload.single("chacha"), identifyUser, postController.createPostController)
+postRouter.post("/", upload.single("image"), identifyUser, postController.createPostController)
 
 
 
@@ -20,6 +20,11 @@ postRouter.get("/details/:postId", identifyUser, postController.getPostDetailsCo
 
 postRouter.post("/like/:postId", identifyUser, postController.likePostController)
 
+
+postRouter.post("/unlike/:postId", identifyUser, postController.unLikePostController)
+
+
+postRouter.get("/feed", identifyUser,postController.getFeedController)
 
 
 module.exports = postRouter
